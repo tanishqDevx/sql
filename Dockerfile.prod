@@ -1,0 +1,23 @@
+FROM python:3.12-slim
+
+# create non-root user
+RUN useradd --create-home --shell /bin/bash appuser
+
+WORKDIR /app
+
+# copy only required files
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+# ensure db file exists and owned by appuser (if you seed on build)
+RUN chown -R appuser:appuser /app
+
+USER appuser
+
+ENV FLASK_ENV=production
+ENV PYTHONUNBUFFERED=1
+
+# Gunicorn: 3 workers by default (tune per CPU), timeout 120s
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "3", "--timeout", "120", "app:app"]
