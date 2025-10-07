@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SQLi Demo — Login</title>
+  </head>
+  <body>
+    <h1>SQL Injection Demo — Login</h1>
+    <p>
+      This login form is <strong>intentionally vulnerable</strong> for learning
+      SQL injection.
+    </p>
+
+    <form method="post">
+      Username: <input name="username" placeholder="username" /><br /><br />
+      Password: <input name="password" placeholder="password" /><br /><br />
+      <input type="submit" value="Login" />
+    </form>
+
+    {% if result %}
+    <h3>Result:</h3>
+    {% if result.ok %}
+    <p>Welcome <strong>{{ result.username }}</strong>!</p>
+    <p><strong>FLAG:</strong> <code>{{ result.flag }}</code></p>
+    {% else %}
+    <p style="color: darkred">{{ result.msg }}</p>
+    {% endif %} {% endif %} {% if query_shown %}
+    <h4>Executed SQL (vulnerable):</h4>
+    <pre>{{ query_shown }}</pre>
+    {% endif %}
+
+    <hr />
+    <p>Try SQL injection, for example:</p>
+    <ul>
+      <li><code>' OR '1'='1' --</code> as username and blank password</li>
+      <li>Or try: <code>admin' --</code> as username and any password</li>
+    </ul>
+
+    <p>
+      <a href="{{ url_for('submit_flag') }}">Submit a flag</a> |
+      <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
+    </p>
+  </body>
+</html>
