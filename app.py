@@ -143,4 +143,4 @@ def leaderboard():
 if __name__ == "__main__":
     if not os.path.exists(APP_DB):
         init_db()
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=12345, debug=True)

@@ -20,4 +20,4 @@ ENV FLASK_ENV=production
 ENV PYTHONUNBUFFERED=1
 
 # Gunicorn: 3 workers by default (tune per CPU), timeout 120s
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "3", "--timeout", "120", "app:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:12345", "--workers", "3", "--timeout", "120", "app:app"]
